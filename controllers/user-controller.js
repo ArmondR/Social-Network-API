@@ -62,6 +62,15 @@ const userController = {
         })
         .catch(err => res.json(err));
     },
+    removeFriend(req, res) {
+        User.findOneAndUpdate(
+            { _id: req.params.id },
+            { $pull: {friends: req.params.friendId }},
+            { new: true }
+        )
+        .then(dbUserData => res.json(dbUserData))
+        .catch(err => res.json(err));
+    },
 
     // update user info by id
     updateUser({ params, body }, res) {
